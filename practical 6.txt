@@ -1,0 +1,44 @@
+// 6. Write a program to search a given element in a set of N numbers using Binary search
+// (i) with recursion (ii) without recursion.
+
+#include <iostream>
+using namespace std;
+
+// Recursive Binary Search
+int binarySearchRecursive(int arr[], int left, int right, int x) {
+    if (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == x) return mid;
+        if (arr[mid] > x) return binarySearchRecursive(arr, left, mid - 1, x);
+        return binarySearchRecursive(arr, mid + 1, right, x);
+    }
+    return -1;
+}
+
+// Iterative Binary Search
+int binarySearchIterative(int arr[], int n, int x) {
+    int left = 0, right = n - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == x) return mid;
+        if (arr[mid] < x) left = mid + 1;
+        else right = mid - 1;
+    }
+    return -1;
+}
+
+int main() {
+    int arr[] = {2, 3, 4, 10, 40};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int x = 10;
+
+    // Recursive search
+    int result1 = binarySearchRecursive(arr, 0, n - 1, x);
+    cout << "Recursive Search: " << (result1 != -1 ? "Found at index " + to_string(result1) : "Not Found") << endl;
+
+    // Iterative search
+    int result2 = binarySearchIterative(arr, n, x);
+    cout << "Iterative Search: " << (result2 != -1 ? "Found at index " + to_string(result2) : "Not Found") << endl;
+
+    return 0;
+}

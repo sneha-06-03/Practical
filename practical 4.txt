@@ -1,0 +1,83 @@
+// 4. Write a menu-driven program to perform following operations on strings (without using built-in string functions)
+// a) Show address of each character in string
+// b) Concatenate two strings
+// c) Compare two strings
+// d) Calculate length of the string (use pointers)
+// e) Convert all lowercase characters to uppercase
+// f) Reverse the string
+
+#include <iostream>
+using namespace std;
+
+void showAddress(char *str) {
+    while (*str) {
+        cout << "Character: " << *str << ", Address: " << (void*)str << endl;
+        str++;
+    }
+}
+
+void concatenate(char *s1, char *s2, char *result) {
+    while (*s1) *result++ = *s1++;
+    while (*s2) *result++ = *s2++;
+    *result = '\0';
+}
+
+int compare(char *s1, char *s2) {
+    while (*s1 && (*s1 == *s2)) {
+        s1++;
+        s2++;
+    }
+    return *(unsigned char *)s1 - *(unsigned char *)s2;
+}
+
+int length(char *str) {
+    int len = 0;
+    while (*str++) len++;
+    return len;
+}
+
+void toUppercase(char *str) {
+    while (*str) {
+        if (*str >= 'a' && *str <= 'z') {
+            *str -= 32;
+        }
+        str++;
+    }
+}
+
+void reverseString(char *str) {
+    char *end = str + length(str) - 1;
+    while (str < end) {
+        char temp = *str;
+        *str = *end;
+        *end = temp;
+        str++;
+        end--;
+    }
+}
+
+int main() {
+    char str1[100], str2[100], result[200];
+    int choice;
+
+    cout << "Enter first string: ";
+    cin >> str1;
+
+    cout << "Enter second string: ";
+    cin >> str2;
+
+    cout << "\n1. Show Address\n2. Concatenate\n3. Compare\n4. Length\n5. Uppercase\n6. Reverse\nChoice: ";
+    cin >> choice;
+
+    switch (choice) {
+        case 1: showAddress(str1); break;
+        case 2: concatenate(str1, str2, result); cout << "Concatenated: " << result << endl; break;
+        case 3: cout << "Comparison result: " << compare(str1, str2) << endl; break;
+        case 4: cout << "Length: " << length(str1) << endl; break;
+        case 5: toUppercase(str1); cout << "Uppercase: " << str1 << endl; break;
+        case 6: reverseString(str1); cout << "Reversed: " << str1 << endl; break;
+        default: cout << "Invalid choice" << endl;
+    }
+
+    return 0;
+}

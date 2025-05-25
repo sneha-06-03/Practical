@@ -1,0 +1,29 @@
+// 3. Write a program that prints a table indicating the number of occurrences of each alphabet in the text
+#include <iostream>
+#include <map>
+#include <cctype>
+
+using namespace std;
+
+int main(int argc, char* argv[]) {
+    map<char, int> frequency;
+
+    // Process each argument (excluding the program name)
+    for (int i = 1; i < argc; i++) {
+        string arg = argv[i];
+        for (char c : arg) {
+            if (isalpha(c)) { // Only consider alphabetic characters
+                char lower_c = tolower(c); // Convert to lowercase for uniformity
+                frequency[lower_c]++;
+            }
+        }
+    }
+
+    // Output the frequency table
+    cout << "Character Frequency Table:" << endl;
+    for (const auto& pair : frequency) {
+        cout << pair.first << ": " << pair.second << endl;
+    }
+
+    return 0;
+}
